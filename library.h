@@ -6,7 +6,7 @@ class Library
 private:
     std::vector <File *> files;
 public:
-    Library::Library(std::vector <File *> _files) : files(_files){}
+    Library(std::vector <File *> _files) : files(_files){}
     void add_book();
     void add_photo();
     void add_movie();

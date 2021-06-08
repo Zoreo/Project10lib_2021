@@ -3,28 +3,28 @@
 void Library::add_book()
 {
     Book *b = new Book();
-    b->input();
+    b->input_book();
     files.push_back(b);
 }
 void Library::add_photo()
 {
     Photo *p = new Photo();
-    p->input();
+    p->input_photo();
     files.push_back(p);
 }
 void Library::add_movie()
 {
     Movie *m = new Movie();
-    m->input();
+    m->input_movie();
     files.push_back(m);
 }
 void Library::add_song()
 {
     Song *s = new Song();
-    s->input();
+    s->input_song();
     files.push_back(s);
 }
-
+//File::print() doesn't really work, how do i get data from child classes using parent elements?????????????
 void Library::find_file_path()
 {
     std::string path;
@@ -37,8 +37,218 @@ void Library::find_file_path()
             files[i]->print();
     }
 }
+void Library::find_file_title()
+{
+    std::string title;
+    getline(std::cin, title, '\n');
+    if (title[0] == ' ')
+        title.assign(title.substr(1));
+    for (int i = 0; i < files.size(); ++i)
+    {
+        if (files[i]->get_title() == title)
+            files[i]->print();
+    }
+}
+void Library::find_desc()
+{
+    std::string desc;
+    getline(std::cin, desc, '\n');
+    for (int i = 0; i < files.size(); ++i)
+    {
+        if (files[i]->get_short_description().find(desc)) //std::string::find finds substrings/ matching strings
+        {
+            files[i]->print();
+        }
+        else
+            std::cout << "none found, try again.";
+    }
+}
 
-void Library::userMenu()
+//damn that filetype be useless//fix ones below
+//need to know how to create separate vectors of each data type(File ----> Book, Photo, Movie, Song)
+void Library::find_book()
+{
+    std::string search; //edition/author
+    std::string option; //1 2 3 4/ terry pratchet etc.
+    std::cin >> search >> option;
+    std::vector<Book *> books;
+    for (int i = 0; i < files.size(); i++)
+    {
+        if (files[i]->get_type() == "book") //&& search == "edition"
+        {
+            books.push_back(files[i]); //tuka programata ne znae koe e. kakvo pravq
+            for (int i = 0; i < books.size(); i++)
+            {
+                if (search == "edition" || books[i]->get_edition() == option)
+                {
+                    books[i]->print_book();
+                }
+                if (search == "author" || books[i]->get_author() == option)
+                {
+                    books[i]->print_book();
+                }
+            }
+        }
+    }
+}
+void Library::find_photo()
+{
+    std::string search; //edition/author
+    std::string option; //1 2 3 4/ terry pratchet etc.
+    std::cin >> search >> option;
+    std::vector<Photo *> photos;
+    for (int i = 0; i < files.size(); i++)
+    {
+        if (files[i]->get_type() == "photo") //&& search == "edition"
+        {
+            photos.push_back(files[i]); //tuka programata ne znae koe e. kakvo pravq
+            for (int i = 0; i < photos.size(); i++)
+            {
+                if (search == "location" || photos[i]->get_location() == option)
+                {
+                    photos[i]->print_photo();
+                }
+                if (search == "date" || photos[i]->get_date() == option)
+                {
+                    photos[i]->print_photo();
+                }
+            }
+        }
+    }
+}
+void Library::find_movie()
+{
+    std::string search; //edition/author
+    std::string option; //1 2 3 4/ terry pratchet etc.
+    std::cin >> search >> option;
+    std::vector<Movie *> movies;
+    for (int i = 0; i < files.size(); i++)
+    {
+        if (files[i]->get_type() == "movie") //&& search == "edition"
+        {
+            movies.push_back(files[i]); //tuka programata ne znae koe e. kakvo pravq
+            for (int i = 0; i < movies.size(); i++)
+            {
+                if (search == "year" || movies[i]->get_year_of_release() == option)
+                {
+                    movies[i]->print_movie();
+                }
+                if (search == "resume" || movies[i]->get_resume() == option)
+                {
+                    movies[i]->print_movie();
+                }
+                if (search == "duration" || movies[i]->get_duration() == option)
+                {
+                    movies[i]->print_movie();
+                }
+            }
+        }
+    }
+}
+void Library::find_song()
+{
+    std::string search; //edition/author
+    std::string option; //1 2 3 4/ terry pratchet etc.
+    std::cin >> search >> option;
+    std::vector<Song *> songs;
+    for (int i = 0; i < files.size(); i++)
+    {
+        if (files[i]->get_type() == "movie") //&& search == "edition"
+        {
+            songs.push_back(files[i]); //tuka programata ne znae koe e. kakvo pravq
+            for (int i = 0; i < songs.size(); i++)
+            {
+                if (search == "performer" || songs[i]->get_performer() == option)
+                {
+                    songs[i]->print_song();
+                }
+                if (search == "album" || songs[i]->get_album() == option)
+                {
+                    songs[i]->print_song();
+                }
+                if (search == "year" || songs[i]->get_album_year() == option)
+                {
+                    songs[i]->print_song();
+                }
+            }
+        }
+    }
+}
+//File::print() doesn't really work, how do i get data from child classes using parent elements?????????????(same as above)
+void Library::info_books()
+{
+    for (int i = 0; i < files.size(); i++)
+    {
+        if (files[i]->get_type() == "book")
+        {
+            files[i].print();
+        }
+    }
+}
+void Library::info_photos()
+{
+    for (int i = 0; i < files.size(); i++)
+    {
+        if (files[i]->get_type() == "photo")
+        {
+            files[i].print();
+        }
+    }
+}
+void Library::info_movies()
+{
+    for (int i = 0; i < files.size(); i++)
+    {
+        if (files[i]->get_type() == "movie")
+        {
+            files[i].print();
+        }
+    }
+}
+void Library::info_songs()
+{
+    for (int i = 0; i < files.size(); i++)
+    {
+        if (files[i]->get_type() == "song")
+        {
+            files[i].print();
+        }
+    }
+}
+void Library::info_all()
+{
+    for (int i = 0; i < files.size(); i++)
+    {
+        files[i].print();
+    }
+}
+
+void Library::remove_file(std::string file){ //idk if we need the string to be in here
+    std::string file;
+    getline(std::cin, file, '\n');
+    for (int i = 0; i < files.size(); i++)
+    {
+        if (file == files[i]->get_title() || file == files[i]->get_absolute_path())
+        {
+            files.erase(files.begin() + i - 1);
+        }
+    }
+    files.resize(files.size() - 1); //might not need this
+}
+void Library::move_file(){
+    std::string old_file;
+    std::string new_file;
+    getline(std::cin, old_file, '\n');
+    std::cout << "Where do you want to move that file to: ";
+    getline(std::cin, new_file, '\n');
+    //need to copy each component first and then remove_file()
+
+    
+    remove_file()
+    std::string new_file;
+    
+}
+void Library::user_menu()
 {
     std::string option;
     while (true)
@@ -73,9 +283,18 @@ void Library::userMenu()
         if (option == "find")
         {
             std::string arg;
+            std::string arg2;
             std::cin >> arg;
             if (arg == "file")
+                std::cin >> arg2;
+            if (arg2 == "path")
+            {
                 find_file_path();
+            }
+            if (arg2 == "title")
+            {
+                find_file_title();
+            }
             if (arg == "desc")
                 find_desc();
             if (arg == "book")
@@ -84,7 +303,7 @@ void Library::userMenu()
                 find_photo();
             if (arg == "movie")
                 find_movie();
-            if (arg == "son")
+            if (arg == "song")
                 find_song(); //can use map to hide some ifs later on
         }
         if (option == "remove")
@@ -154,5 +373,5 @@ void Library::userMenu()
 }
 void Library::run()
 {
-    userMenu();
+    user_menu();
 }

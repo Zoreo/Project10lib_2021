@@ -5,6 +5,7 @@
 class File
 {
 private:
+    const std::string type = "file";
     std::string title;
     std::string absolute_path;
     std::string short_description;
@@ -16,6 +17,7 @@ public:
     virtual void input();
     virtual void write_file();
     virtual void print();
+    std::string get_type();
     std::string get_title();
     void set_title(std::string x);
     std::string get_absolute_path();
@@ -27,25 +29,27 @@ public:
 class Book : public File
 {
 private:
+    const std::string type = "book";
     std::string author;
     // std::string title;
-    int edition;
+    std::string edition;
 
 public:
     Book(){};
-    Book(std::string title, std::string abs_path, std::string short_description, std::string author, int edition);
+    Book(std::string title, std::string abs_path, std::string short_description, std::string author, std::string edition);
     void read_book(std::ifstream &in);
     void input_book();
     void write_book(std::ofstream &out);
     void print_book();
     std::string get_author();
     // std::string get_title();
-    int get_edition();
+    std::string get_edition();
 };
 
 class Photo : public File
 {
 private:
+    const std::string type = "photo";
     // std::string title;
     std::string location;
     std::string date;
@@ -65,20 +69,21 @@ public:
 class Movie : public File
 {
 private:
+    const std::string type = "movie";
     // std::string title;
-    int year_of_release;
+    std::string year_of_release;
     std::string resume;
     std::string duration; //change duration to int if needed
 
 public:
     Movie(){};
-    Movie(std::string title, std::string abs_path, std::string short_description, int year_of_release, std::string resume, std::string duration);
+    Movie(std::string title, std::string abs_path, std::string short_description, std::string year_of_release, std::string resume, std::string duration);
     void read_movie(std::ifstream &in);
     void input_movie();
     void write_movie(std::ofstream &out);
     void print_movie();
     // std::string get_title();
-    int get_year_of_release();
+    std::string get_year_of_release();
     std::string get_resume();
     std::string get_duration();
 };
@@ -86,14 +91,15 @@ public:
 class Song : public File
 {
 private:
+    const std::string type = "song";
     std::string performer;
     std::string album;
     // std::string title;
-    int album_year;
+    std::string album_year;
 
 public:
     Song(){};
-    Song(std::string title, std::string new_abs_path, std::string new_short_description, std::string performer, std::string album, int album_year);
+    Song(std::string title, std::string new_abs_path, std::string new_short_description, std::string performer, std::string album, std::string album_year);
     void read_song(std::ifstream &in);
     void input_song();
     void write_song(std::ofstream &out);
@@ -101,5 +107,5 @@ public:
     std::string get_performer();
     std::string get_album();
     // std::string get_title();
-    int get_album_year();
+    std::string get_album_year();
 };

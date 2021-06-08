@@ -27,13 +27,13 @@ public:
     void info_songs();
     void info_all();
 
-    void remove_file(std::string file);  //done
+    void remove_file();  //done
     void move_file();//!!!!!!
 
-    void read_file();   //prolly dont need these
+    void read_file();    //prolly dont need these
     void close_file();   //prolly dont need these
-    void save();   //prolly dont need these  
-    void save_as();   //prolly dont need these
+    void save();         //prolly dont need these  
+    void save_as();      //prolly dont need these
 
     void user_menu();  //done
     void run();        //done

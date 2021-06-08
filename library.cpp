@@ -3,25 +3,25 @@
 void Library::add_book()
 {
     Book *b = new Book();
-    b->input_book();
+    b->input();
     files.push_back(b);
 }
 void Library::add_photo()
 {
     Photo *p = new Photo();
-    p->input_photo();
+    p->input();
     files.push_back(p);
 }
 void Library::add_movie()
 {
     Movie *m = new Movie();
-    m->input_movie();
+    m->input();
     files.push_back(m);
 }
 void Library::add_song()
 {
     Song *s = new Song();
-    s->input_song();
+    s->input();
     files.push_back(s);
 }
 //File::print() doesn't really work, how do i get data from child classes using parent elements?????????????
@@ -76,16 +76,16 @@ void Library::find_book()
     {
         if (files[i]->get_type() == "book") //&& search == "edition"
         {
-            books.push_back(files[i]); //tuka programata ne znae koe e. kakvo pravq
+            books.push_back(dynamic_cast<Book *>(files[i])); //tuka programata ne znae koe e. kakvo pravq
             for (int i = 0; i < books.size(); i++)
             {
                 if (search == "edition" || books[i]->get_edition() == option)
                 {
-                    books[i]->print_book();
+                    books[i]->print();
                 }
                 if (search == "author" || books[i]->get_author() == option)
                 {
-                    books[i]->print_book();
+                    books[i]->print();
                 }
             }
         }
@@ -101,16 +101,16 @@ void Library::find_photo()
     {
         if (files[i]->get_type() == "photo") //&& search == "edition"
         {
-            photos.push_back(files[i]); //tuka programata ne znae koe e. kakvo pravq
+            photos.push_back(dynamic_cast<Photo *>(files[i])); //tuka programata ne znae koe e. kakvo pravq
             for (int i = 0; i < photos.size(); i++)
             {
                 if (search == "location" || photos[i]->get_location() == option)
                 {
-                    photos[i]->print_photo();
+                    photos[i]->print();
                 }
                 if (search == "date" || photos[i]->get_date() == option)
                 {
-                    photos[i]->print_photo();
+                    photos[i]->print();
                 }
             }
         }
@@ -126,25 +126,26 @@ void Library::find_movie()
     {
         if (files[i]->get_type() == "movie") //&& search == "edition"
         {
-            movies.push_back(files[i]); //tuka programata ne znae koe e. kakvo pravq
+            movies.push_back(dynamic_cast<Movie *>(files[i])); //tuka programata ne znae koe e. kakvo pravq
             for (int i = 0; i < movies.size(); i++)
             {
                 if (search == "year" || movies[i]->get_year_of_release() == option)
                 {
-                    movies[i]->print_movie();
+                    movies[i]->print();
                 }
                 if (search == "resume" || movies[i]->get_resume() == option)
                 {
-                    movies[i]->print_movie();
+                    movies[i]->print();
                 }
                 if (search == "duration" || movies[i]->get_duration() == option)
                 {
-                    movies[i]->print_movie();
+                    movies[i]->print();
                 }
             }
         }
     }
 }
+
 void Library::find_song()
 {
     std::string search; //edition/author
@@ -153,22 +154,22 @@ void Library::find_song()
     std::vector<Song *> songs;
     for (int i = 0; i < files.size(); i++)
     {
-        if (files[i]->get_type() == "movie") //&& search == "edition"
+        if (files[i]->get_type() == "song") //&& search == "edition"
         {
-            songs.push_back(files[i]); //tuka programata ne znae koe e. kakvo pravq
+            songs.push_back(dynamic_cast<Song *>(files[i])); //tuka programata ne znae koe e. kakvo pravq
             for (int i = 0; i < songs.size(); i++)
             {
                 if (search == "performer" || songs[i]->get_performer() == option)
                 {
-                    songs[i]->print_song();
+                    songs[i]->print();
                 }
                 if (search == "album" || songs[i]->get_album() == option)
                 {
-                    songs[i]->print_song();
+                    songs[i]->print();
                 }
                 if (search == "year" || songs[i]->get_album_year() == option)
                 {
-                    songs[i]->print_song();
+                    songs[i]->print();
                 }
             }
         }
@@ -181,17 +182,18 @@ void Library::info_books()
     {
         if (files[i]->get_type() == "book")
         {
-            files[i].print();
+            files[i]->print();
         }
     }
 }
+
 void Library::info_photos()
 {
     for (int i = 0; i < files.size(); i++)
     {
         if (files[i]->get_type() == "photo")
         {
-            files[i].print();
+            files[i]->print();
         }
     }
 }
@@ -201,7 +203,7 @@ void Library::info_movies()
     {
         if (files[i]->get_type() == "movie")
         {
-            files[i].print();
+            files[i]->print();
         }
     }
 }
@@ -211,7 +213,7 @@ void Library::info_songs()
     {
         if (files[i]->get_type() == "song")
         {
-            files[i].print();
+            files[i]->print();
         }
     }
 }
@@ -219,11 +221,11 @@ void Library::info_all()
 {
     for (int i = 0; i < files.size(); i++)
     {
-        files[i].print();
+        files[i]->print();
     }
 }
 
-void Library::remove_file(std::string file){ //idk if we need the string to be in here
+void Library::remove_file(){ //idk if we need the string to be in here
     std::string file;
     getline(std::cin, file, '\n');
     for (int i = 0; i < files.size(); i++)
@@ -235,6 +237,7 @@ void Library::remove_file(std::string file){ //idk if we need the string to be i
     }
     files.resize(files.size() - 1); //might not need this
 }
+
 void Library::move_file(){
     std::string old_file;
     std::string new_file;
@@ -242,12 +245,19 @@ void Library::move_file(){
     std::cout << "Where do you want to move that file to: ";
     getline(std::cin, new_file, '\n');
     //need to copy each component first and then remove_file()
-
-    
-    remove_file()
-    std::string new_file;
-    
 }
+
+void Library::read_file(){
+    std::cout << "gosho";
+}
+void Library::save(){
+    std::cout << "gosho";
+}
+
+void Library::save_as(){
+    std::cout << "gosho";
+}
+
 void Library::user_menu()
 {
     std::string option;
@@ -306,7 +316,7 @@ void Library::user_menu()
             if (arg == "song")
                 find_song(); //can use map to hide some ifs later on
         }
-        if (option == "remove")
+        if (option == "remove") // remove ivan.txt
         {
             remove_file();
         }

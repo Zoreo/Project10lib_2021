@@ -16,19 +16,20 @@ public:
     void find_file_path();  //done 
     void find_file_title();  //done 
     void find_desc();  //done
-    void find_book();  //tf
-    void find_photo(); //tf
-    void find_movie(); //tf
-    void find_song();  //tf
+    void find_book();  //done
+    void find_photo(); //done
+    void find_movie(); //done
+    void find_song();  //donenew_file_name
 
-    void info_books();
-    void info_photos();
-    void info_movies();
-    void info_songs();
-    void info_all();
+    void info();
+    void info_books(); //done
+    void info_photos();//done
+    void info_movies();//done
+    void info_songs(); //done
+    void info_all();   //done
 
     void remove_file();  //done
-    void move_file();//!!!!!!
+    void move_file();    //done
 
     void read_file();    //prolly dont need these
     void close_file();   //prolly dont need these

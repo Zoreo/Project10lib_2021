@@ -9,180 +9,180 @@ std::string File::get_absolute_path() { return absolute_path; }
 void File::set_short_description(std::string x) { short_description = x; }
 std::string File::get_short_description() { return short_description; }
 void File::set_absolute_path(std::string x) { absolute_path = x; }
+std::string File::get_total_loc() { return get_absolute_path() + get_title(); }
 
-void File::read_file()
+void File::read_file(std::ifstream &in)
 {
-    std::cout << "gosho";
+    getline(in, title, '\n');
+    getline(in, short_description, '\n');
+    getline(in, absolute_path, '\n');
+    in.ignore();
 }
 void File::input()
 {
-    std::cout << "gosho";
+    std::cout << "Title : ";
+    getline(std::cin, title, '\n');
+    std::cout << "Short description : ";
+    getline(std::cin, short_description, '\n');
+    std::cout << "Path : ";
+    getline(std::cin, absolute_path, '\n');
+    std::cin.ignore();
 }
-void File::write_file()
+void File::write_file(std::ofstream &out)
 {
-    std::cout << "gosho";
+    out << title << std::endl;
+    out << short_description << std::endl;
+    out << absolute_path << std::endl;
 }
 void File::print()
 {
-    std::cout << "gosho";
+    std::cout << "============== " << get_type() << " ================================================================" << std::endl;
+    std::cout << "Title : " << get_title() << std::endl;
+    std::cout << "Short description : " << short_description << std::endl;
+    std::cout << "Path : " << edition << std::endl;
 } //teq tuka trq gi opravqm, ma mai ne ni trqbvat
 
 //Book functions
 Book::Book(std::string new_title, std::string new_abs_path, std::string new_short_description, std::string new_author, std::string new_edition) : File(new_title, new_abs_path, new_short_description), author(new_author), edition(new_edition) {}
 std::string Book::get_author() { return author; }
-// std::string Book::get_title() { return title; }
 std::string Book::get_edition() { return edition; }
-void Book::read(std::ifstream &in)
+std::string Book::get_total_loc() { return get_absolute_path() + get_title() + ".pdf"; } //first change
+std::string Book::get_type() { return "Book"; }                                          //second change
+void Book::input()
 {
     std::string title;
     std::string desc;
     std::string path;
-    getline(in, title, '\n');
-    set_title(title);
-    getline(in, author, '\n');
-    getline(in, edition, '\n');
-    getline(in, desc, '\n');
-    set_short_description(desc);
-    getline(in, path, '\n');
-    set_absolute_path(path);
-}
-void Book::input()
-{
-    std::string desc;//fix these
-    std::string path;
-    std::string title;
-    std::cout << std::endl
-              << "Author : ";
+    std::cin.ignore();
+    std::cout << "Author : ";
     getline(std::cin, author, '\n');
     std::cout << "Title : ";
     getline(std::cin, title, '\n');
     set_title(title);
     std::cout << "Edition : ";
-    std::cin >> edition;
-    std::cout << std::endl;
+    getline(std::cin, edition, '\n');
     std::cout << "Short description : ";
     getline(std::cin, desc, '\n');
     set_short_description(desc);
-    std::cout << std::endl
-              << "Absolute path : ";
+    std::cout << "Absolute path : ";
     getline(std::cin, path, '\n');
     set_absolute_path(path);
     std::cout << std::endl;
 }
-void Book::write(std::ofstream &out)
-{
-    out << get_title() << std::endl;
-    out << author << std::endl;
-    out << edition << std::endl;
-    out << get_short_description() << std::endl;
-    out << get_absolute_path() << std::endl;
-}
+// std::string Book::get_title() { return title; }
+// void Book::read(std::ifstream &in)
+// {
+//     std::string title;
+//     std::string desc;
+//     std::string path;
+//     getline(in, title, '\n');
+//     set_title(title);
+//     getline(in, author, '\n');
+//     getline(in, edition, '\n');
+//     getline(in, desc, '\n');
+//     set_short_description(desc);
+//     getline(in, path, '\n');
+//     set_absolute_path(path);
+// }
+// void Book::write(std::ofstream &out)
+// {
+//     out << get_title() << std::endl;
+//     out << author << std::endl;
+//     out << edition << std::endl;
+//     out << get_short_description() << std::endl;
+//     out << get_absolute_path() << std::endl;
+// }
 void Book::print()
 {
-    std::cout << "==================================================================================" << std::endl;
+    std::cout << "============== " << get_type() << " ================================================================" << std::endl;
     std::cout << "Title : " << get_title() << std::endl;
     std::cout << "Author : " << author << std::endl;
-    std::cout << "Edtion(number) : " << edition << std::endl;
+    std::cout << "Edtion : " << edition << std::endl;
     std::cout << "Short description : " << get_short_description() << std::endl;
-    std::cout << "Path : " << get_absolute_path() << std::endl;
+    std::cout << "Path : " << get_total_loc() << std::endl;
 }
 
 //Photo functions
 Photo::Photo(std::string new_title, std::string new_abs_path, std::string new_short_description, std::string new_location, std::string new_date) : File(new_title, new_abs_path, new_short_description), location(new_location), date(new_date) {}
 std::string Photo::get_location() { return location; }
 std::string Photo::get_date() { return date; }
-// std::string Photo::get_title() { return title; }
-void Photo::read(std::ifstream &in)
-{
-    std::string title;
-    std::string desc;
-    std::string path;
-    getline(in, title, '\n');
-    set_title(title);
-    getline(in, location, '\n');
-    getline(in, date, '\n');
-    getline(in, desc, '\n');
-    set_short_description(desc);
-    getline(in, path, '\n');
-    set_absolute_path(path);
-}
+std::string Photo::get_total_loc() { return get_absolute_path() + get_title() + ".png"; } //first change
+std::string Photo::get_type() { return "Photo"; }                                         //second change
+
 void Photo::input()
 {
     std::string title;
     std::string desc;
     std::string path;
+    std::cin.ignore();
+
     std::cout << "Title : ";
     getline(std::cin, title, '\n');
     set_title(title);
-    std::cout << std::endl
-              << "Location : ";
+    std::cout << "Location : ";
     getline(std::cin, location, '\n');
     std::cout << "Date : ";
     getline(std::cin, date, '\n');
     std::cout << "Short description : ";
     getline(std::cin, desc, '\n');
     set_short_description(desc);
-    std::cout << std::endl
-              << "Absolute path : ";
+    std::cout << "Absolute path : ";
     getline(std::cin, path, '\n');
     set_absolute_path(path);
     std::cout << std::endl;
 }
-void Photo::write(std::ofstream &out)
-{
-    out << get_title() << std::endl;
-    out << location << std::endl;
-    out << date << std::endl;
-    out << get_short_description() << std::endl;
-    out << get_absolute_path() << std::endl;
-}
+// std::string Photo::get_title() { return title; }
+// void Photo::read(std::ifstream &in)
+// {
+//     std::string title;
+//     std::string desc;
+//     std::string path;
+//     getline(in, title, '\n');
+//     set_title(title);
+//     getline(in, location, '\n');
+//     getline(in, date, '\n');
+//     getline(in, desc, '\n');
+//     set_short_description(desc);
+//     getline(in, path, '\n');
+//     set_absolute_path(path);
+// }
+// void Photo::write(std::ofstream &out)
+// {
+//     out << get_title() << std::endl;
+//     out << location << std::endl;
+//     out << date << std::endl;
+//     out << get_short_description() << std::endl;
+//     out << get_absolute_path() << std::endl;
+// }
 void Photo::print()
 {
-    std::cout << "==================================================================================" << std::endl;
+    std::cout << "============== " << get_type() << " ================================================================" << std::endl;
     std::cout << "Title : " << get_title() << std::endl;
     std::cout << "Location : " << location << std::endl;
     std::cout << "Date : " << date << std::endl;
     std::cout << "Short description : " << get_short_description() << std::endl;
-    std::cout << "Path : " << get_absolute_path() << std::endl;
+    std::cout << "Path : " << get_total_loc() << std::endl;
 }
 
 //Movie functions
 Movie::Movie(std::string new_title, std::string new_abs_path, std::string new_short_description, std::string new_year_of_release, std::string new_resume, std::string new_duration) : File(new_title, new_abs_path, new_short_description), year_of_release(new_year_of_release), resume(new_resume), duration(new_duration) {}
-// std::string Movie::get_title() { return title; }
 std::string Movie::get_year_of_release() { return year_of_release; }
 std::string Movie::get_resume() { return resume; }
 std::string Movie::get_duration() { return duration; }
-void Movie::read(std::ifstream &in)
-{
-    std::string title;
-    std::string desc;
-    std::string path;
-    getline(in, title, '\n');
-    set_title(title);
-    std::cout << std::endl;
-
-    getline(in, year_of_release, '\n');
-    getline(in, resume, '\n');
-    getline(in, duration, '\n');
-    getline(in, desc, '\n');
-    set_short_description(desc);
-    std::cout << std::endl;
-
-    getline(in, path, '\n');
-    set_absolute_path(path);
-    std::cout << std::endl;
-}
+std::string Movie::get_total_loc() { return get_absolute_path() + get_title() + ".mp4"; } //first change
+std::string Movie::get_type() { return "Movie"; }                                         //second change
 void Movie::input()
 {
     std::string desc;
     std::string path;
     std::string title;
+    std::cin.ignore();
+
     std::cout << "Title : ";
     getline(std::cin, title, '\n');
     set_title(title);
     std::cout << "Year of release : ";
-    std::cin >> year_of_release;
-    std::cout << std::endl;
+    getline(std::cin, year_of_release, '\n');
     std::cout << "Resume : ";
     getline(std::cin, resume, '\n');
     std::cout << "Duration : ";
@@ -193,58 +193,62 @@ void Movie::input()
     std::cout << "Absolute path : ";
     getline(std::cin, path, '\n');
     set_absolute_path(path);
+    std::cout << std::endl;
 }
-void Movie::write(std::ofstream &out)
-{
-    out << get_title() << std::endl;
-    out << year_of_release << std::endl;
-    out << resume << std::endl;
-    out << duration << std::endl;
-    out << get_short_description() << std::endl;
-    out << get_absolute_path() << std::endl;
-}
+// std::string Movie::get_title() { return title; }
+// void Movie::read(std::ifstream &in)
+// {
+//     std::string title;
+//     std::string desc;
+//     std::string path;
+//     getline(in, title, '\n');
+//     set_title(title);
+//     std::cout << std::endl;
+//     getline(in, year_of_release, '\n');
+//     getline(in, resume, '\n');
+//     getline(in, duration, '\n');
+//     getline(in, desc, '\n');
+//     set_short_description(desc);
+//     std::cout << std::endl;
+//     getline(in, path, '\n');
+//     set_absolute_path(path);
+//     std::cout << std::endl;
+// }
+// void Movie::write(std::ofstream &out)
+// {
+//     out << get_title() << std::endl;
+//     out << year_of_release << std::endl;
+//     out << resume << std::endl;
+//     out << duration << std::endl;
+//     out << get_short_description() << std::endl;
+//     out << get_absolute_path() << std::endl;
+// }
 void Movie::print()
 {
-    std::cout << "==================================================================================" << std::endl;
+    std::cout << "============== " << get_type() << " ================================================================" << std::endl;
     std::cout << "Title : " << get_title() << std::endl;
     std::cout << "Year of release : " << year_of_release << std::endl;
     std::cout << "Resume : " << resume << std::endl;
     std::cout << "Duration : " << duration << std::endl;
     std::cout << "Short description : " << get_short_description() << std::endl;
-    std::cout << "Path : " << get_absolute_path() << std::endl;
+    std::cout << "Path : " << get_total_loc() << std::endl;
 }
 
 //Song functions
 Song::Song(std::string new_title, std::string new_abs_path, std::string new_short_description, std::string new_performer, std::string new_album, std::string new_album_year) : File(new_title, new_abs_path, new_short_description), performer(new_performer), album(new_album), album_year(new_album_year) {}
 std::string Song::get_performer() { return performer; }
 std::string Song::get_album() { return album; }
-// std::string Song::get_title() { return title; }
 std::string Song::get_album_year() { return album_year; }
-void Song::read(std::ifstream &in)
-{
-    std::string title;
-    std::string desc;
-    std::string path;
-    getline(in, title, '\n');
-    set_title(title);
-    std::cout << std::endl;
+std::string Song::get_total_loc() { return get_absolute_path() + get_title() + ".mp3"; } //first change
+std::string Song::get_type() { return "Song"; }                                          //second change
 
-    getline(in, performer, '\n');
-    getline(in, album, '\n');
-    getline(in, album_year, '\n');
-    getline(in, desc, '\n');
-    set_short_description(desc);
-    std::cout << std::endl;
-
-    getline(in, path, '\n');
-    set_absolute_path(path);
-    std::cout << std::endl;
-}
 void Song::input()
 {
     std::string desc;
     std::string path;
     std::string title;
+    std::cin.ignore();
+
     std::cout << "Title : ";
     getline(std::cin, title, '\n');
     set_title(title);
@@ -253,31 +257,50 @@ void Song::input()
     std::cout << "Album : ";
     getline(std::cin, album, '\n');
     std::cout << "Album's release year : ";
-    std::cin >> album_year;
-    std::cout << std::endl;
+    getline(std::cin, album_year, '\n');
     std::cout << "Short description : ";
     getline(std::cin, desc, '\n');
     set_short_description(desc);
     std::cout << "Absolute path : ";
     getline(std::cin, path, '\n');
     set_absolute_path(path);
+    std::cout << std::endl;
 }
-void Song::write(std::ofstream &out)
-{
-    out << get_title() << std::endl;
-    out << performer << std::endl;
-    out << album << std::endl;
-    out << album_year << std::endl;
-    out << get_short_description() << std::endl;
-    out << get_absolute_path() << std::endl;
-}
+// std::string Song::get_title() { return title; }
+// void Song::read(std::ifstream &in)
+// {
+//     std::string title;
+//     std::string desc;
+//     std::string path;
+//     getline(in, title, '\n');
+//     set_title(title);
+//     std::cout << std::endl;
+//     getline(in, performer, '\n');
+//     getline(in, album, '\n');
+//     getline(in, album_year, '\n');
+//     getline(in, desc, '\n');
+//     set_short_description(desc);
+//     std::cout << std::endl;
+//     getline(in, path, '\n');
+//     set_absolute_path(path);
+//     std::cout << std::endl;
+// }
+// void Song::write(std::ofstream &out)
+// {
+//     out << get_title() << std::endl;
+//     out << performer << std::endl;
+//     out << album << std::endl;
+//     out << album_year << std::endl;
+//     out << get_short_description() << std::endl;
+//     out << get_absolute_path() << std::endl;
+// }
 void Song::print()
 {
-    std::cout << "==================================================================================" << std::endl;
+    std::cout << "============== " << get_type() << " ================================================================" << std::endl;
     std::cout << "Title : " << get_title() << std::endl;
     std::cout << "Singer/Band : " << performer << std::endl;
     std::cout << "Album : " << album << std::endl;
     std::cout << "Year of release : " << album_year << std::endl;
     std::cout << "Short description : " << get_short_description() << std::endl;
-    std::cout << "Path : " << get_absolute_path() << std::endl;
+    std::cout << "Path : " << get_total_loc() << std::endl;
 }

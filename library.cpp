@@ -4,27 +4,66 @@ void Library::add_book()
 {
     Book *b = new Book();
     b->input();
+    for (int i = 0; i < files.size(); i++)
+    {
+        if (files[i]->get_total_loc() == b->get_total_loc())
+        {
+            std::cout << "A book with the same name and location already exists. Choose a different name or location, \n";
+            return;
+        }
+    }
     files.push_back(b);
+    std::cout << "Successfully added book \"" << b->get_title() << " - " << b->get_author()<< "\"  with size of "  << sizeof(b) << " bytes." << std::endl;
 }
+
 void Library::add_photo()
 {
     Photo *p = new Photo();
     p->input();
+    for (int i = 0; i < files.size(); i++)
+    {
+        if (files[i]->get_total_loc() == p->get_total_loc())
+        {
+            std::cout << "A photo with the same name and location already exists. Choose a different name or location, \n";
+            return;
+        }
+    }
     files.push_back(p);
+    std::cout << "Photo added. \n";
 }
+
 void Library::add_movie()
 {
     Movie *m = new Movie();
     m->input();
+    for (int i = 0; i < files.size(); i++)
+    {
+        if (files[i]->get_total_loc() == m->get_total_loc())
+        {
+            std::cout << "A movie with the same name and location already exists. Choose a different name or location. \n";
+            return;
+        }
+    }
     files.push_back(m);
+    std::cout << "Movie added. \n";
 }
+
 void Library::add_song()
 {
     Song *s = new Song();
     s->input();
+    for (int i = 0; i < files.size(); i++)
+    {
+        if (files[i]->get_total_loc() == s->get_total_loc())
+        {
+            std::cout << "A song with the same name and location already exists. Choose a different name or location. \n";
+            return;
+        }
+    }
     files.push_back(s);
+    std::cout << "Song added. \n";
 }
-//File::print() doesn't really work, how do i get data from child classes using parent elements?????????????
+
 void Library::find_file_path()
 {
     std::string path;
@@ -33,7 +72,7 @@ void Library::find_file_path()
         path.assign(path.substr(1));
     for (int i = 0; i < files.size(); ++i)
     {
-        if (files[i]->get_absolute_path() == path)
+        if (files[i]->get_total_loc() == path)
             files[i]->print();
     }
 }
@@ -64,8 +103,6 @@ void Library::find_desc()
     }
 }
 
-//damn that filetype be useless//fix ones below
-//need to know how to create separate vectors of each data type(File ----> Book, Photo, Movie, Song)
 void Library::find_book()
 {
     std::string search; //edition/author
@@ -74,9 +111,9 @@ void Library::find_book()
     std::vector<Book *> books;
     for (int i = 0; i < files.size(); i++)
     {
-        if (files[i]->get_type() == "book") //&& search == "edition"
+        if (files[i]->get_type() == "Book") //&& search == "edition"
         {
-            books.push_back(dynamic_cast<Book *>(files[i])); //tuka programata ne znae koe e. kakvo pravq
+            books.push_back(dynamic_cast<Book *>(files[i]));
             for (int i = 0; i < books.size(); i++)
             {
                 if (search == "edition" || books[i]->get_edition() == option)
@@ -91,6 +128,7 @@ void Library::find_book()
         }
     }
 }
+
 void Library::find_photo()
 {
     std::string search; //edition/author
@@ -99,9 +137,9 @@ void Library::find_photo()
     std::vector<Photo *> photos;
     for (int i = 0; i < files.size(); i++)
     {
-        if (files[i]->get_type() == "photo") //&& search == "edition"
+        if (files[i]->get_type() == "Photo") //&& search == "edition"
         {
-            photos.push_back(dynamic_cast<Photo *>(files[i])); //tuka programata ne znae koe e. kakvo pravq
+            photos.push_back(dynamic_cast<Photo *>(files[i]));
             for (int i = 0; i < photos.size(); i++)
             {
                 if (search == "location" || photos[i]->get_location() == option)
@@ -124,9 +162,9 @@ void Library::find_movie()
     std::vector<Movie *> movies;
     for (int i = 0; i < files.size(); i++)
     {
-        if (files[i]->get_type() == "movie") //&& search == "edition"
+        if (files[i]->get_type() == "Movie") //&& search == "edition"
         {
-            movies.push_back(dynamic_cast<Movie *>(files[i])); //tuka programata ne znae koe e. kakvo pravq
+            movies.push_back(dynamic_cast<Movie *>(files[i]));
             for (int i = 0; i < movies.size(); i++)
             {
                 if (search == "year" || movies[i]->get_year_of_release() == option)
@@ -154,9 +192,9 @@ void Library::find_song()
     std::vector<Song *> songs;
     for (int i = 0; i < files.size(); i++)
     {
-        if (files[i]->get_type() == "song") //&& search == "edition"
+        if (files[i]->get_type() == "Song") //&& search == "edition"
         {
-            songs.push_back(dynamic_cast<Song *>(files[i])); //tuka programata ne znae koe e. kakvo pravq
+            songs.push_back(dynamic_cast<Song *>(files[i]));
             for (int i = 0; i < songs.size(); i++)
             {
                 if (search == "performer" || songs[i]->get_performer() == option)
@@ -175,88 +213,136 @@ void Library::find_song()
         }
     }
 }
-//File::print() doesn't really work, how do i get data from child classes using parent elements?????????????(same as above)
-void Library::info_books()
+
+void Library::info()
 {
+    std::string param;
+    std::cin >> param;
     for (int i = 0; i < files.size(); i++)
     {
-        if (files[i]->get_type() == "book")
+        if (param == "books" && files[i]->get_type() == "Book")
         {
+            std::cout << "Showing all books: \n";
+            files[i]->print();
+        }
+        if (param == "photos" && files[i]->get_type() == "Photo")
+        {
+            std::cout << "Showing all photos: \n";
+            files[i]->print();
+        }
+        if (param == "movies" && files[i]->get_type() == "Movie")
+        {
+            std::cout << "Showing all movies: \n";
+            files[i]->print();
+        }
+        if (param == "songs" && files[i]->get_type() == "Song")
+        {
+            std::cout << "Showing all songs: \n";
+            files[i]->print();
+        }
+        if (param == "all")
+        {
+            std::cout << "Showing all files: \n";
             files[i]->print();
         }
     }
 }
 
-void Library::info_photos()
-{
-    for (int i = 0; i < files.size(); i++)
-    {
-        if (files[i]->get_type() == "photo")
-        {
-            files[i]->print();
-        }
-    }
-}
-void Library::info_movies()
-{
-    for (int i = 0; i < files.size(); i++)
-    {
-        if (files[i]->get_type() == "movie")
-        {
-            files[i]->print();
-        }
-    }
-}
-void Library::info_songs()
-{
-    for (int i = 0; i < files.size(); i++)
-    {
-        if (files[i]->get_type() == "song")
-        {
-            files[i]->print();
-        }
-    }
-}
-void Library::info_all()
-{
-    for (int i = 0; i < files.size(); i++)
-    {
-        files[i]->print();
-    }
-}
+// void Library::info_books()
+// {
+//     for (int i = 0; i < files.size(); i++)
+//     {
+//         if (files[i]->get_type() == "Book")
+//         {
+//             files[i]->print();
+//         }
+//     }
+// }
+// void Library::info_photos()
+// {
+//     for (int i = 0; i < files.size(); i++)
+//     {
+//         if (files[i]->get_type() == "Photo")
+//         {
+//             files[i]->print();
+//         }
+//     }
+// }
+// void Library::info_movies()
+// {
+//     for (int i = 0; i < files.size(); i++)
+//     {
+//         if (files[i]->get_type() == "Movie")
+//         {
+//             files[i]->print();
+//         }
+//     }
+// }
+// void Library::info_songs()
+// {
+//     for (int i = 0; i < files.size(); i++)
+//     {
+//         if (files[i]->get_type() == "Song")
+//         {
+//             files[i]->print();
+//         }
+//     }
+// }
+// void Library::info_all()
+// {
+//     for (int i = 0; i < files.size(); i++)
+//     {
+//         files[i]->print();
+//     }
+// }
 
-void Library::remove_file(){ //idk if we need the string to be in here
+//add a sort function?? to get lambda funcions points??????
+
+void Library::remove_file()
+{
     std::string file;
     getline(std::cin, file, '\n');
     for (int i = 0; i < files.size(); i++)
     {
-        if (file == files[i]->get_title() || file == files[i]->get_absolute_path())
+        if (file == files[i]->get_title() || file == files[i]->get_total_loc())
         {
             files.erase(files.begin() + i - 1);
         }
     }
     files.resize(files.size() - 1); //might not need this
+    std::cout << "Removal complete. \n";
 }
 
-void Library::move_file(){
-    std::string old_file;
-    std::string new_file;
-    getline(std::cin, old_file, '\n');
+void Library::move_file()
+{
+    std::string old_file_name;
+    std::string new_file_path;
+    std::cin.ignore();
+    getline(std::cin, old_file_name, '\n');
     std::cout << "Where do you want to move that file to: ";
-    getline(std::cin, new_file, '\n');
-    //need to copy each component first and then remove_file()
+    getline(std::cin, new_file_path, '\n');
+    for (int i = 0; i < files.size(); i++)
+    {
+        if (files[i]->get_title() == old_file_name || files[i]->get_total_loc() == old_file_name) //finds the wanted file
+        {
+            files[i]->set_absolute_path(new_file_path);
+        }
+    }
+    std::cout << "Moving complete. \n";
 }
 
-void Library::read_file(){
-    std::cout << "gosho";
-}
-void Library::save(){
-    std::cout << "gosho";
-}
-
-void Library::save_as(){
-    std::cout << "gosho";
-}
+// void Library::read_file()
+// {
+//     std::cout << "gosho";
+// }
+// void Library::save()
+// {
+//     std::cout << "gosho";
+// }
+// void Library::save_as()
+// {
+//     std::cout << "gosho";
+// }
 
 void Library::user_menu()
 {
@@ -272,7 +358,6 @@ void Library::user_menu()
             if (arg1 == "book")
             {
                 add_book();
-                std::cout << "Book added.\n";
             }
             if (arg1 == "photo")
             {
@@ -287,7 +372,7 @@ void Library::user_menu()
             if (arg1 == "song")
             {
                 add_song();
-                std::cout << "Song added.";
+                std::cout << "Song added.\n";
             }
         }
         if (option == "find")
@@ -296,14 +381,12 @@ void Library::user_menu()
             std::string arg2;
             std::cin >> arg;
             if (arg == "file")
+            {
                 std::cin >> arg2;
-            if (arg2 == "path")
-            {
-                find_file_path();
-            }
-            if (arg2 == "title")
-            {
-                find_file_title();
+                if (arg2 == "path")
+                    find_file_path();
+                if (arg2 == "title")
+                    find_file_title();
             }
             if (arg == "desc")
                 find_desc();
@@ -322,63 +405,81 @@ void Library::user_menu()
         }
         if (option == "info")
         {
-            std::string arg;
-            std::cin >> arg;
-            if (arg == "books")
-                info_books();
-            if (arg == "photos")
-                info_photos();
-            if (arg == "movies")
-                info_movies();
-            if (arg == "songs")
-                info_songs();
-            if (arg == "")
-                info_all();
-            else
-                std::cout << "Wrong input, enter h for help\n";
+            info();
+            // std::string argn;
+            // std::cin >> argn;
+            // if (argn == "photos")
+            // {
+            //     std::cout << "Showing all photos: \n";
+            //     info();
+            // }
+            // if (argn == "movies")
+            // {
+            //     std::cout << "Showing all movies: \n";
+            //     info_movies();
+            // }
+            // if (argn == "songs")
+            // {
+            //     std::cout << "Showing all songs: \n";
+            //     info_songs();
+            // }
+            // if (argn == "all")
+            // { //could be nullable
+            //     std::cout << "Showing all files: \n";
+            //     info_all();
+            // }
+            // else if (argn != "books" && argn != "photos" && argn != "movies" && argn != "songs") //this is wrong but it works as planned so ill leave it here for now
+            // {
+            //     std::cout << "Wrong input, enter h for help\n";
+            // }
         }
         if (option == "move")
         {
             move_file();
         }
-        else if (option == "open")
+        if (option == "exit")
         {
-            read_file();
+            break;
         }
-        else if (option == "close")
-        {
-            files.clear();
-            std::cout << "Successfully closed "; // << session.getBookFile() << std::endl; //tf is that
-        }
-        else if (option == "save")
-        {
-            save();
-        }
-        else if (option == "saveas")
-        {
-            save_as();
-        }
-        else if (option == "h")
+
+        // else if (option == "open")
+        // {
+        //     read_file();
+        // }
+        // else if (option == "close")
+        // {
+        //     files.clear();
+        //     std::cout << "Successfully closed "; // << session.getBookFile() << std::endl; //tf is that
+        // }
+        // else if (option == "save")
+        // {
+        //     save();
+        // }
+        // else if (option == "saveas")
+        // {
+        //     save_as();
+        // }
+        else if (option == "h" || option == "help")
         {
             std::cout << "The following commands are supported:\n";
-            std::cout << "--------------------------------------General options------------------------------------------\n";
-            std::cout << "open <file>:                              opens <file>\n";
-            std::cout << "close:                                    closes currently opened file\n";
-            std::cout << "save:                                     saves the currently open file\n";
-            std::cout << "saveas <file>:                            saves the currently open file in <file>\n";
-            std::cout << "help:                                     prints this information\n";
-            std::cout << "exit:                                     exits the program\n";
-            std::cout << "--------------------------------------Program options------------------------------------------\n";
-            std::cout << "add <option>:                             adds a book/song/movie/photo\n";
-            std::cout << "find file <option>:                       finds and prints a file (path/abs_path)\n";
-            std::cout << "find <option> <option_string>:            finds and prints all files of specified type(book/song/movie/photo) and selected option";
-            std::cout << "find description <string>:                finds files with descriptions that the <string> partially matches at least";
-            std::cout << "remove <path>:                            removes a file by path";
-            std::cout << "info <option>:                            shows info on wanted type of files(all/books/songs/movies)\n";
-            std::cout << "books all:                                shows all the books available\n";
-            std::cout << "files sort <option> [asc | desc]:         sorts listed files(books/photos/songs/movies) by a criteria in ascending or descending order\n";
-            std::cout << "move file:                                moves a chosen file to a chosen location";
+            std::cout << "---------------------------------------------------------General options------------------------------------------------------------\n";
+            // std::cout << "open <file>:                              opens <file>\n";
+            // std::cout << "close:                                    closes currently opened file\n";
+            // std::cout << "save:                                     saves the currently open file\n";
+            // std::cout << "saveas <file>:                            saves the currently open file in <file>\n";
+            std::cout << "help:                                 prints this information\n";
+            std::cout << "exit:                                 exits the program\n";
+            std::cout << "---------------------------------------------------------Program options------------------------------------------------------------\n";
+            std::cout << "add <option>:                         adds a book/song/movie/photo\n";
+            std::cout << "find file <option>:                   finds and prints a file (path/abs_path)\n";
+            std::cout << "find <option> <option_string>:        finds and prints all files of specified type(book/song/movie/photo) and selected option\n";
+            std::cout << "find description <string>:            finds files with descriptions that the <string> partially matches at least\n";
+            std::cout << "remove <path>:                        removes a file by path\n";
+            std::cout << "info <option>:                        shows info on wanted type of files(all/books/songs/movies)\n";
+            std::cout << "move <title/path>:                    moves a chosen file to a chosen location\n";
+            // std::cout << "files sort <option> [asc | desc]:     sorts listed files(books/photos/songs/movies) by a criteria in ascending or descending order\n";
         }
+        // else std::cout << "Wrong input, enter 'h' for help" << std::endl;
     }
 }
 void Library::run()

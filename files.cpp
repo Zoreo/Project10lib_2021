@@ -2,7 +2,7 @@
 
 //File functions
 File::File(std::string new_title, std::string new_absolute_path, std::string new_short_description) : title(new_title), absolute_path(new_absolute_path), short_description(new_short_description) {}
-std::string File::get_type() { return type; }
+std::string File::get_type() { return "File"; }
 std::string File::get_title() { return title; }
 void File::set_title(std::string x) { title = x; }
 std::string File::get_absolute_path() { return absolute_path; }
@@ -38,16 +38,18 @@ void File::print()
 {
     std::cout << "============== " << get_type() << " ================================================================" << std::endl;
     std::cout << "Title : " << get_title() << std::endl;
-    std::cout << "Short description : " << short_description << std::endl;
-    std::cout << "Path : " << edition << std::endl;
+    std::cout << "Short description : " << get_short_description() << std::endl;
+    std::cout << "Path : " << get_absolute_path()<< std::endl;
 } //teq tuka trq gi opravqm, ma mai ne ni trqbvat
 
 //Book functions
 Book::Book(std::string new_title, std::string new_abs_path, std::string new_short_description, std::string new_author, std::string new_edition) : File(new_title, new_abs_path, new_short_description), author(new_author), edition(new_edition) {}
 std::string Book::get_author() { return author; }
+void Book::set_author(std::string x){ author = x;}
 std::string Book::get_edition() { return edition; }
-std::string Book::get_total_loc() { return get_absolute_path() + get_title() + ".pdf"; } //first change
-std::string Book::get_type() { return "Book"; }                                          //second change
+void Book::set_edition(std::string x){ author = x;}
+std::string Book::get_total_loc() { return get_absolute_path() + get_title() + ".pdf"; }
+std::string Book::get_type() { return "Book"; }                                          
 void Book::input()
 {
     std::string title;
@@ -92,6 +94,8 @@ void Book::input()
 //     out << get_short_description() << std::endl;
 //     out << get_absolute_path() << std::endl;
 // }
+// void read_file(std::ifstream &in){
+
 void Book::print()
 {
     std::cout << "============== " << get_type() << " ================================================================" << std::endl;
@@ -105,7 +109,9 @@ void Book::print()
 //Photo functions
 Photo::Photo(std::string new_title, std::string new_abs_path, std::string new_short_description, std::string new_location, std::string new_date) : File(new_title, new_abs_path, new_short_description), location(new_location), date(new_date) {}
 std::string Photo::get_location() { return location; }
+void Photo::set_location(std::string x) { location = x;}
 std::string Photo::get_date() { return date; }
+void Photo::set_date(std::string x) { date = x; }
 std::string Photo::get_total_loc() { return get_absolute_path() + get_title() + ".png"; } //first change
 std::string Photo::get_type() { return "Photo"; }                                         //second change
 
@@ -167,8 +173,11 @@ void Photo::print()
 //Movie functions
 Movie::Movie(std::string new_title, std::string new_abs_path, std::string new_short_description, std::string new_year_of_release, std::string new_resume, std::string new_duration) : File(new_title, new_abs_path, new_short_description), year_of_release(new_year_of_release), resume(new_resume), duration(new_duration) {}
 std::string Movie::get_year_of_release() { return year_of_release; }
+void Movie::set_year_of_release(std::string x){ year_of_release = x; }
 std::string Movie::get_resume() { return resume; }
+void Movie::set_resume(std::string x) { resume = x; }
 std::string Movie::get_duration() { return duration; }
+void Movie::set_duration(std::string x) { duration = x; }
 std::string Movie::get_total_loc() { return get_absolute_path() + get_title() + ".mp4"; } //first change
 std::string Movie::get_type() { return "Movie"; }                                         //second change
 void Movie::input()
@@ -237,8 +246,11 @@ void Movie::print()
 //Song functions
 Song::Song(std::string new_title, std::string new_abs_path, std::string new_short_description, std::string new_performer, std::string new_album, std::string new_album_year) : File(new_title, new_abs_path, new_short_description), performer(new_performer), album(new_album), album_year(new_album_year) {}
 std::string Song::get_performer() { return performer; }
+void Song::set_performer(std::string x) { performer = x;}
 std::string Song::get_album() { return album; }
+void Song::set_album(std::string x) { album = x;}
 std::string Song::get_album_year() { return album_year; }
+void Song::set_album_year(std::string x) { album_year = x;}
 std::string Song::get_total_loc() { return get_absolute_path() + get_title() + ".mp3"; } //first change
 std::string Song::get_type() { return "Song"; }                                          //second change
 

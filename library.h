@@ -6,12 +6,17 @@ class Library
 {
 private:
     std::vector <File *> files;
+    std::string file_name = "files.txt";
 public:
     Library(std::vector <File *> _files) : files(_files){}
     void add_book();   //done 
     void add_photo();  //done 
     void add_movie();  //done 
     void add_song();  //done 
+
+    std::string get_file_name();
+    void copy_files_to_file(std::string file_name);//praim na .txt da pazi veche dobavenite
+    void read_files_from_file(std::ifstream& file_name);//chete ot tuka i gi dobavq v nachaloto za da ne trqbwa da dobavqme edin fail 48 pyti    
 
     void find_file_path();  //done 
     void find_file_title();  //done 

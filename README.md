@@ -3,7 +3,6 @@ online library focused on working with different types of files
 
 How to use:
 
-you can:
 add a file:
   > add book/photo/movie/song
 

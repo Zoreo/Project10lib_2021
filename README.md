@@ -16,7 +16,7 @@ also search through the descripions:
   > find desc <desc>
 
 search by different specific criteria:
-  > find book/photo/movie/song author/edition//location/date//etc.(press h for more info)
+  > find book/photo/movie/song author/edition//location/date//etc. 
 
 if you don't want to be specific with your seach, use the "info" feature that lists all files of the specified type:
   > info books/photos/movies/songs/all

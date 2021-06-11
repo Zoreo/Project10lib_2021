@@ -24,9 +24,12 @@ if you don't want to be specific with your seach, use the "info" feature that li
 move a file to a desired location:
   > move <title/absolute_path>
 
-save and write the changes you've made so far into a file:
+save and write the changes you've made so far:
   > save
 
+or save your changes to a file you've specified:
+  > saveas <yourfile.txt>
+  
 load a previously saved file:
   > load
 

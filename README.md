@@ -37,4 +37,4 @@ load a custom file:
   >load_custom
 
 For more information about this projec, follow this link:
-*no documentaion link yet*
+https://docs.google.com/document/d/1Hbkk-UY9Jx4dcrtguE3_KRaQ70BPZZj2oveFKsEtWRM/edit?usp=sharing

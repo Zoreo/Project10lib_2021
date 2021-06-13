@@ -30,8 +30,11 @@ save and write the changes you've made so far:
 or save your changes to a file you've specified:
   > saveas <yourfile.txt>
   
-load a previously saved file:
+load the previously saved default file:
   > load
+ 
+load a custom file:
+  >load_custom
 
 For more information about this projec, follow this link:
 *no documentaion link yet*

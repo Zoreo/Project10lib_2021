@@ -4,7 +4,9 @@ Online library focused on working with different types of files
 How to use:
 
 add a file:
+```bash
   > add book/photo/movie/song
+```
 
 remove a file through its absolute path:
   > remove <abs_path>

@@ -55,7 +55,7 @@ load the previously saved default file:
  
 load a custom file:
 ```
-  >load_custom
+  > load_custom
   ```
 
 For more information about this projec, follow this link:
